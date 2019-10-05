@@ -23,8 +23,6 @@ int main(int argc, const char *argv[])
 
 		std::cout << (automaton1 == automaton2 ? "true" : "false") << std::endl;
 		BREAK();
-		automaton1.print_test(std::cout);
-		BREAK();
 		std::cout << "c:\t" << (automaton1.recognize("c") ? "true" : "false") << std::endl;
 		std::cout << "aba:\t" << (automaton1.recognize("aba") ? "true" : "false") << std::endl;
 		std::cout << "abab:\t" << (automaton1.recognize("abab") ? "true" : "false") << std::endl;
