@@ -64,7 +64,7 @@ std::istream &Automaton::read(std::istream &in)
 	in.getline(buffer, 256);
 	char *token = std::strtok(buffer, " ");
 	while (token != nullptr) {
-		char *tmp = new char[strlen(token)+1];
+		char *tmp = new char[std::strlen(token)+1];
 		tmp = strcpy(tmp, token);
 		labels.push_back(tmp);
 		token = std::strtok(nullptr, " ");
@@ -82,7 +82,7 @@ std::istream &Automaton::read(std::istream &in)
 	in.getline(buffer, 256);
 	token = std::strtok(buffer, " ");
 	while (token != nullptr) {
-		char *tmp = new char[strlen(token)+1];
+		char *tmp = new char[std::strlen(token)+1];
 		tmp = strcpy(tmp, token);
 		letters.push_back(tmp);
 		token = std::strtok(nullptr, " ");
@@ -91,7 +91,7 @@ std::istream &Automaton::read(std::istream &in)
 	in.getline(buffer, 256);
 	token = std::strtok(buffer, " ");
 	while (token != nullptr) {
-		char *tmp = new char[strlen(token)+1];
+		char *tmp = new char[std::strlen(token)+1];
 		tmp = strcpy(tmp, token);
 		int i = 0;
 		bool found = false;
@@ -113,7 +113,7 @@ std::istream &Automaton::read(std::istream &in)
 	in.getline(buffer, 256);
 	token = std::strtok(buffer, " ");
 	while (token != nullptr) {
-		char *tmp = new char[strlen(token)+1];
+		char *tmp = new char[std::strlen(token)+1];
 		tmp = strcpy(tmp, token);
 		int i = 0;
 		bool found = false;
