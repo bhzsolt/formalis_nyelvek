@@ -38,7 +38,6 @@ Automaton::Automaton(const char *filename)
 
 Automaton::Automaton(const Automaton &copy) : si(copy.si), ei(copy.ei), size(copy.size)
 {
-	//std::cerr << "copy const" << std::endl;
 	for (int i = 0; i < copy.labels.size(); ++i) {
 		char *tmp = new char[std::strlen(copy.labels[i])+1];
 		tmp = std::strcpy(tmp, copy.labels[i]);
@@ -70,10 +69,6 @@ std::istream &Automaton::read(std::istream &in)
 		labels.push_back(tmp);
 		token = std::strtok(nullptr, " ");
 	}
-	for (auto i : labels) {
-		//std::cerr << i << " ";
-	}
-	//std::cerr << std::endl;
 
 	size = labels.size();
 	graph = new int *[size];
@@ -92,10 +87,6 @@ std::istream &Automaton::read(std::istream &in)
 		letters.push_back(tmp);
 		token = std::strtok(nullptr, " ");
 	}
-	for (auto i : letters) {
-		//std::cerr << i << " ";
-	}
-	//std::cerr << std::endl;
 
 	in.getline(buffer, 256);
 	token = std::strtok(buffer, " ");
@@ -118,11 +109,6 @@ std::istream &Automaton::read(std::istream &in)
 		}
 		token = std::strtok(nullptr, " ");
 	}
-	for (auto i : si) {
-		//std::cerr << labels[i] << " ";
-	}
-	//std::cerr << std::endl;
-
 
 	in.getline(buffer, 256);
 	token = std::strtok(buffer, " ");
@@ -145,16 +131,11 @@ std::istream &Automaton::read(std::istream &in)
 		}
 		token = std::strtok(nullptr, " ");
 	}
-	for (auto i : ei) {
-		//std::cerr << labels[i] << " ";
-	}
-	//std::cerr << std::endl;
 
 	in.getline(buffer, 256);
 	while (!in.eof()) {
 		token = std::strtok(buffer, " ");
 		
-		//std::cerr << token;
 		int i = 0, sp, ep, l;
 		while (i < labels.size() && std::strcmp(labels[i], token)) {
 			++i;
@@ -166,7 +147,6 @@ std::istream &Automaton::read(std::istream &in)
 		}
 		token = std::strtok(nullptr, " ");
 
-		//std::cerr << " " << token;
 		i = 0;
 		while (i < letters.size() && std::strcmp(letters[i], token)) {
 			++i;
@@ -178,7 +158,6 @@ std::istream &Automaton::read(std::istream &in)
 		}
 		token = std::strtok(nullptr, " ");
 
-		//std::cerr << " " << token << "\t";
 		i = 0;
 		while (i < labels.size() && std::strcmp(labels[i], token)) {
 			++i;
@@ -190,7 +169,6 @@ std::istream &Automaton::read(std::istream &in)
 		}
 		token = std::strtok(nullptr, " ");
 
-		//std::cerr << "(" << sp << "," << ep << ") = " << l << std::endl;
 		graph[sp][ep] = l;
 
 		in.getline(buffer, 256);
@@ -825,10 +803,8 @@ bool Automaton::recognize_helper(int start, const char *string) const
 			++i;
 		}
 		if (i < ei.size()) {
-			std::cerr << std::endl;
 			return true;
 		}
-		std::cerr << std::endl;
 		return false;
 	}
 
