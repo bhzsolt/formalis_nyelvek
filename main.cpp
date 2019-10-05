@@ -2,6 +2,8 @@
 #include <fstream>
 #include "automaton.hpp"
 
+#define BREAK()	{std::cout << "───────────────────────────" << std::endl}
+
 int main(int argc, const char *argv[])
 {
 	if (argc < 2) {
