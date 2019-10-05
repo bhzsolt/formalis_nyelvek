@@ -819,3 +819,43 @@ bool Automaton::recognize_helper(int start, const char *string) const
 	}
 	return false;
 }
+
+void Automaton::print_dot(const char *config_file) const
+{
+	std::ifstream config(config_file);
+	std::ofstream output("automaton.gv");
+
+	output << "digraph {" << std::endl;
+
+	char buffer[256];
+	config.getline(buffer, 256);
+	do {
+		output << "\t" << buffer << std::endl;
+		config.getline(buffer, 256);
+	} while (!config.eof());
+	config.close();
+	output << std::endl;
+
+	for (auto start : si) {
+		output << "\t" << "i" << labels[start] << " [shape = point, style = invis];" << std::endl;
+		output << "\t" << "i" << labels[start] << " -> " << labels[start] << ";" << std::endl;
+	}
+
+	for (auto end : ei) {
+		output << "\t" << labels[end] << " [shape = doublecircle];" << std::endl;
+	}
+
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			if (graph[i][j] != -1) {
+				output << "\t" << labels[i] << " -> " 
+							   << labels[j] << " [label = " 
+							   << letters[graph[i][j]] << "];" 
+							   << std::endl;
+			}
+		}
+	}
+
+	output << "}" << std::endl;
+	output.close();
+}

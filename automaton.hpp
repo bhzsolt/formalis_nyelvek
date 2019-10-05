@@ -29,6 +29,8 @@ class Automaton {
 		bool operator ==(const Automaton &) const;
 
 		bool recognize(const char *) const;
+
+		void print_dot(const char *) const;
 };
 
 std::istream &operator >>(std::istream &, Automaton &);
