@@ -1,0 +1,18 @@
+digraph G {
+	ranksep = 0.5;
+	nodesep = 0.5;
+	rankdir = LR;
+	node [shape		= circle, 
+		  fontsize	= 16];
+	fontsize = 10;
+	compound = true;
+
+	i1 [shape = point, 
+	    style = invis];
+	3  [shape = doublecircle];
+
+	i1 -> 1;
+	1 -> 2 [label = a];
+	2 -> 1 [label = b];
+	2 -> 3 [label = b];
+}
