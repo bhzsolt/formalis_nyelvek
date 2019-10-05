@@ -14,7 +14,10 @@ int main(int argc, const char *argv[])
 		Automaton automaton2(argv[2]);
 
 		std::ofstream out1("01.out");
-
+		automaton1.exclude_unreachable();
+		automaton1.exclude_useless();
+		out1 << automaton1;
+		out1.close();
 
 		std::cout << (automaton1 == automaton2 ? "true" : "false") << std::endl;
 		BREAK();
