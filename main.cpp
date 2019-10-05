@@ -6,7 +6,7 @@
 
 int main(int argc, const char *argv[])
 {
-	if (argc < 2) {
+	if (argc < 3) {
 		std::cerr << "bad argument count" << std::endl;
 		return 1;
 	}
@@ -35,6 +35,8 @@ int main(int argc, const char *argv[])
 		std::cout << "bb:\t" << (automaton1.recognize("bb") ? "true" : "false") << std::endl;
 		std::cout << "abaaab:\t" << (automaton1.recognize("abaaab") ? "true" : "false") << std::endl;
 		std::cout << "abcba:\t" << (automaton1.recognize("abcba") ? "true" : "false") << std::endl;
+
+		automaton1.print_dot(argv[3]);
 	}
 	catch (const char *exception) {
 		std::cerr << exception << std::endl;
