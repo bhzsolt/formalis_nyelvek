@@ -734,12 +734,13 @@ bool Automaton::operator ==(const Automaton &oth) const
 		int p = table[i][0];
 		int q = table[i][1];
 		for (int a = 0; a < letters.size(); ++a) {
-			int u = 0, v = 0;
+			int u = 0, v = 0, count = 0;
 			while (u < labels.size() && graph[p][u] != a) {
 				++u;
 			}
 			if (u < labels.size()) {
 				table[i][(a+1)*2] = u;
+				++count;
 			}
 
 			while (v < oth.labels.size() && oth.graph[q][v] != a) {
@@ -747,6 +748,12 @@ bool Automaton::operator ==(const Automaton &oth) const
 			}
 			if (v < oth.labels.size()) {
 				table[i][(a+1)*2+1] = v;
+				++count;
+			}
+
+			if (count == 1) {
+				retfal = false;
+				break;
 			}
 
 			int k = 0, l = 0;
