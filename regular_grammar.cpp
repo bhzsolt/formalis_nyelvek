@@ -2,6 +2,7 @@
 #include "utils.hpp"
 #include <fstream>
 #include <cstring>
+#include <vector>
 
 RegularGrammar::RegularGrammar(const char *filename)
 {
@@ -46,4 +47,63 @@ std::ostream &operator <<(std::ostream &out, const RegularGrammar &grammar)
 	return grammar.print(out);
 }
 
+std::istream &RegularGrammar::read(std::istream &in)
+{
+	char buffer[256];
+	std::vector<char *> tokens;
 
+	in.getline(buffer, 256);
+	tokens = split(buffer, " ");
+	for (auto token : tokens) {
+		char *tmp = new char [std::strlen(token)+1];
+		tmp = std::strcpy(tmp, token);
+		nonterminal.push_back(tmp);
+	}
+
+	in.getline(buffer, 256);
+	tokens = split(buffer, " ");
+	for (auto token : tokens) {
+		char *tmp = new char [std::strlen(token)+1];
+		tmp = std::strcpy(tmp, token);
+		terminal.push_back(tmp);
+	}
+
+	in.getline(buffer, 256);
+	start_symbol = 0;
+	while (start_symbol < nonterminal.size() && 
+			std::strcmp(buffer, nonterminal[start_symbol])) {
+		++start_symbol;
+	}
+
+	in.getline(buffer, 256);
+	do {
+		tokens = split(buffer, " ");
+
+		std::vector<int> tmp;
+		int index = 0;
+		while (index < nonterminal.size() && 
+				std::strcmp(nonterminal[index], tokens[0])) {
+			++index;
+		}
+		tmp.push_back(index);
+
+		index = 0;
+		while (index < terminal.size() &&
+				std::strcmp(terminal[index], tokens[1])) {
+			++index;
+		}
+		tmp.push_back(index);
+		
+		if (tokens.size() == 3) {
+			index = 0;
+			while (index < nonterminal.size() && 
+					std::strcmp(nonterminal[index], tokens[0])) {
+				++index;
+			}
+			tmp.push_back(index);
+		}
+		rules.push_back(tmp);
+		in.getline(buffer, 256);
+	} while (!in.eof());
+	return in;
+}
