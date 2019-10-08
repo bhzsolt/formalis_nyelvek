@@ -752,7 +752,7 @@ bool Automaton::operator ==(const Automaton &oth) const
 			}
 
 			if (count == 1) {
-				retfal = false;
+				retval = false;
 				break;
 			}
 
