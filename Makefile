@@ -18,4 +18,4 @@ obj :
 	mkdir obj
 
 clean :
-	-rm -rf bin obj
+	-rm -rf bin obj *.out

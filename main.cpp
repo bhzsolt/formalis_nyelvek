@@ -1,3 +1,8 @@
+//Bodoki-Halmen Zsolt
+//bzim1700, 531/1
+//
+//labI/5
+
 #include <iostream>
 #include <fstream>
 #include <cstdio>
@@ -9,6 +14,7 @@ int main(int argc, const char *argv[])
 {
 	if (argc < 3) {
 		std::cerr << "bad argument count" << std::endl;
+		std::cerr << "usage: " << argv[0] << " automaton automaton2 config.gv" << std::endl;
 		return 1;
 	}
 
@@ -33,7 +39,7 @@ int main(int argc, const char *argv[])
 		sprintf(buffer, "%s_excluded.gv", argv[1]);
 		automaton1.print_dot(argv[3], buffer); 
 
-		std::cout << (automaton1 == automaton2 ? "true" : "false") << std::endl;
+		std::cout << "input 1 == input 2: " << (automaton1 == automaton2 ? "true" : "false") << std::endl;
 		BREAK();
 		std::cout << automaton1;
 		BREAK();
