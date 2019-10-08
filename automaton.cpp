@@ -827,10 +827,10 @@ bool Automaton::recognize_helper(int start, const char *string) const
 	return false;
 }
 
-void Automaton::print_dot(const char *config_file) const
+void Automaton::print_dot(const char *config_file, const char *output_file) const
 {
 	std::ifstream config(config_file);
-	std::ofstream output("automaton.gv");
+	std::ofstream output(output_file);
 
 	output << "digraph {" << std::endl;
 

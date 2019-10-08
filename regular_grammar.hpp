@@ -24,3 +24,4 @@ class RegularGrammar {
 
 std::istream &operator >>(std::istream &, RegularGrammar &);
 std::ostream &operator <<(std::ostream &, const RegularGrammar &);
+

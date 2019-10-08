@@ -1,4 +1,5 @@
 #include "regular_grammar.hpp"
+#include "utils.hpp"
 #include <fstream>
 #include <cstring>
 
@@ -44,6 +45,5 @@ std::ostream &operator <<(std::ostream &out, const RegularGrammar &grammar)
 {
 	return grammar.print(out);
 }
-
 
 

@@ -30,7 +30,7 @@ class Automaton {
 
 		bool recognize(const char *) const;
 
-		void print_dot(const char *) const;
+		void print_dot(const char *, const char *) const;
 };
 
 std::istream &operator >>(std::istream &, Automaton &);
