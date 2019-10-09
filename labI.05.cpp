@@ -6,9 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+#include <cstdlib>
 #include "automaton.hpp"
-
-#define BREAK()	{std::cout << "───────────────────────────" << std::endl;}
 
 int main(int argc, const char *argv[])
 {
@@ -24,6 +23,9 @@ int main(int argc, const char *argv[])
 		char buffer[256];
 		sprintf(buffer, "%s.gv", argv[1]);
 		automaton.print_dot(argv[2], buffer);
+
+		sprintf(buffer, "dot -Txlib %s.gv", argv[1]);
+		system(buffer);
 	}
 	catch (const char *exception) {
 		std::cerr << exception << std::endl;

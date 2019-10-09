@@ -866,3 +866,8 @@ void Automaton::print_dot(const char *config_file, const char *output_file) cons
 	output << "}" << std::endl;
 	output.close();
 }
+
+void Automaton::from_regexp(const char *regexp)
+{
+
+}
