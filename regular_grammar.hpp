@@ -20,6 +20,7 @@ class RegularGrammar {
 		RegularGrammar(const RegularGrammar &);
 		~RegularGrammar();
 
+		Automaton to_automaton() const;
 };
 
 std::istream &operator >>(std::istream &, RegularGrammar &);

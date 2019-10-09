@@ -106,7 +106,7 @@ std::istream &RegularGrammar::read(std::istream &in)
 		if (tokens.size() == 3) {
 			index = 0;
 			while (index < nonterminal.size() && 
-					std::strcmp(nonterminal[index], tokens[0])) {
+					std::strcmp(nonterminal[index], tokens[2])) {
 				++index;
 			}
 			if (index == nonterminal.size()) {
@@ -120,21 +120,15 @@ std::istream &RegularGrammar::read(std::istream &in)
 	return in;
 }
 
-std::ostream &RegularGrammar::print(std::ostream &out)
+std::ostream &RegularGrammar::print(std::ostream &out) const
 {
-	if (nonterminal.size()) {
-		out << nonterminal[0];
-		for (auto token : nonterminal) {
-			out << " " << token;
-		}
+	for (auto token : nonterminal) {
+		out << token << " ";
 	}
 	out << std::endl;
 
-	if (terminal.size()) {
-		out << terminal[0];
-		for (auto token : terminal) {
-			out << " " << token;
-		}
+	for (auto token : terminal) {
+		out << token << " ";
 	}
 	out << std::endl;
 
@@ -151,4 +145,43 @@ std::ostream &RegularGrammar::print(std::ostream &out)
 		out << std::endl;
 	}
 	return out;
+}
+
+Automaton RegularGrammar::to_automaton() const
+{
+	Automaton automaton;
+	for (auto token : nonterminal) {
+		char *tmp = new char [std::strlen(token)+1];
+		tmp = std::strcpy(tmp, token);
+		automaton.labels.push_back(tmp);
+	}
+	char *tmp = new char [std::strlen("Z")+1];
+	tmp = std::strcpy(tmp, "Z");
+	automaton.labels.push_back(tmp);
+
+	for (auto token : terminal) {
+		char *tmp = new char [std::strlen(token)+1];
+		tmp = std::strcpy(tmp, token);
+		automaton.letters.push_back(tmp);
+	}
+	automaton.si.push_back(start_symbol);
+
+	automaton.size = automaton.labels.size();
+	automaton.graph = new int *[automaton.size];
+	for (int i = 0; i < automaton.size; ++i) {
+		automaton.graph[i] = new int[automaton.size];
+		for (int j = 0; j < automaton.size; ++j) {
+			automaton.graph[i][j] = -1;
+		}
+	}
+
+	for (auto row : rules) {
+		if (row.size() == 2) {
+			automaton.graph[row[0]][automaton.size-1] = row[1];
+		} else {
+			automaton.graph[row[0]][row[2]] = row[1];
+		}
+	}
+
+	return automaton;
 }
