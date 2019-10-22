@@ -201,24 +201,4 @@ class Automata:
         self.edges.append((self.end_states, letter, label))
         self.end_states = label
 
-def inc(label):
-    return chr(ord(label)+1)
-
-def from_regexp(regexp):
-
-    def parantheses(label, index, string):
-        automata = Automata()
-        automata.start_state = label
-        automata.end_state = label
-        automata.states.add(label)
-        
-        while index < len(string) or string[index] != ')':
-            if string[index] == '(':
-                parantheses(inc(label), index+1, string)
-            elif string[index] == '|':
-                pass
-            elif string[index] == '*':
-                pass
-            else:
-                pass
 
