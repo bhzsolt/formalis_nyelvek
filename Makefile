@@ -11,7 +11,7 @@ main	= bin/automaton
 
 .PHONY : all clean
 
-all : $(01) $(02) $(03) $(04) $(05) $(07)
+all : $(01) $(02) $(03) $(05) $(07)
 
 $(01) : bin obj $(notdir $(01)).cpp automaton.hpp obj/automaton.o
 	$(CC) -o $(01) $(notdir $(01)).cpp obj/automaton.o $(FLAGS)
