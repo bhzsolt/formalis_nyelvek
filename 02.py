@@ -2,13 +2,9 @@
 
 from automata import Automata
 
-a1 = Automata('input')
-a2 = Automata('input')
+a1 = Automata('input3')
+a2 = Automata('input4')
+a3 = Automata('input2')
 
-a1.exclude_unreachable
-a1.exclude_useless
-
-a2.exclude_unreachable
-a2.exclude_useless
-
-print(a1 == a2)
+print('a1 = a2: ', a1 == a2)
+print('a1 = a3: ', a1 == a3)
