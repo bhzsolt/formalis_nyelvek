@@ -2,7 +2,7 @@
 
 from stack_automata import StackAutomata
 
-a = StackAutomata('form6')
+a = StackAutomata('../inputs/form6')
 print('\'\':\t{}'.format(a.recognize('')))
 print('ab:\t{}'.format(a.recognize('ab')))
 print('aabb:\t{}'.format(a.recognize('aabb')))

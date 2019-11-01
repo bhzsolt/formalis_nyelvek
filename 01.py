@@ -2,8 +2,8 @@
 
 from automata import Automata
 
-automata = Automata('input')
+automata = Automata('inputs/input')
 automata.exclude_unreachable()
-automata.print('unreachable')
+automata.print('outputs/unreachable')
 automata.exclude_useless()
-automata.print('useless')
+automata.print('outputs/useless')

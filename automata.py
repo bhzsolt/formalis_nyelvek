@@ -292,7 +292,6 @@ def from_regexp(regexp):
 
     def to_rpn(string):
         string = expand(string)
-        print(string)
         stack = Stack()
         queue = ''
         for char in string:
@@ -385,7 +384,6 @@ def from_regexp(regexp):
     label = 'a'
     stack = Stack()
     rpn = to_rpn(regexp)
-    print(rpn)
     for char in rpn:
         if char == '*':
             tmp = stack.pop()

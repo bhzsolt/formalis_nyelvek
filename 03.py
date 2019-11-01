@@ -2,12 +2,12 @@
 
 from automata import Automata
 
-automata = Automata('input')
-with open('input_words', 'r') as f:
+automata = Automata('inputs/input')
+with open('inputs/input_words', 'r') as f:
     contents = f.read().strip()
     f.close()
 
-with open('words_recognized.output', 'w') as f:
+with open('outputs/words_recognized.output', 'w') as f:
 
     lines = contents.split('\n')
     for word in lines:
