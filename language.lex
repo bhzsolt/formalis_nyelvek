@@ -1,86 +1,45 @@
 %{
 	#include <stdio.h>
+	#include <string.h>
 	#include "grammar.tab.h"
-	int line_count;
-	int column_count;
+	int line_count = 0;
+	int column_count = 0;
+
+	void count(int);
 %}
 
 %option noyywrap
 
-NONZERO	[1-9]
-DIGIT	[0-9]
-CHAR	[a-zA-Z]
+D	[0-9]
+L	[a-zA-Z_]
+
+INT		[1-9]{D}*
+REAL	{D}+"."{D}+
 
 %%
 
-0|-?{NONZERO}{DIGIT}* {
-	int number;
-	sscanf(yytext, "%d", &number);
-	column_count += strlen(yytext);
-}
+"/*"[^*]*"*"([^*/][^*]*"*"|"*")*"/" { }
 
-0"."0|-?{NONZERO}{DIGIT}*"."{DIGIT}+ {
-	printf("[%d, %d, %d] real: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
+"//".* { count(0); }
 
-break|continue|return|if|else|for|while|switch|case {
-	printf("[%d, %d, %d] keyword: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
+\r?\n { count(1); }
 
-int|char|double|float|long {
-	printf("[%d, %d, %d] type: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
+0|{INT} 					{ count(0); return CONSTANT; }
+"0.0"|{REAL}				{ count(0); return CONSTANT; }
+(0|{INT})[+\\-]{INT}i		{ count(0); return CONSTANT; }
+("0.0"|{REAL}[+\\-]{REAL}i	{ count(0); return CONSTANT; }
 
-"("|")" {
-	printf("[%d, %d, %d] parantheses: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
-
-"["|"]" {
-	printf("[%d, %d, %d] array-parantheses: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
-
-"{"|"}" {
-	printf("[%d, %d, %d] block: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
-
-";"|","|"\""|"'" {
-	printf("[%d, %d, %d] punctuation: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
-
-"+"|"-"|"*"|"/"|"%"|"="|"=="|"!="|"&&"|"||" {
-	printf("[%d, %d, %d] operator: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
-
-_?|{CHAR}({CHAR}|_|{DIGIT})* {
-	printf("[%d, %d, %d] identifier: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
-
-\"[^\"]+?\" {
-	printf("[%d, %d, %d] string: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
-
-[ \t]+ {
-	column_count += strlen(yytext);
-}
-
-\r?\n {
-	column_count = 0;
-	line_count++;
-}
-
-. {
-	printf("[%d, %d, %d] unknown token: \t%s\n", line_count, column_count, strlen(yytext), yytext);
-	column_count += strlen(yytext);
-}
+{L}({L}|{D})*				{ count(0); return IDENTIFIER; }
 
 %%
+
+void count(int line_break)
+{
+	if (line_break) {
+		++line_count;
+		column_count = 0;
+		return;
+	}
+	column_count += strlen(yytext);
+}
+
