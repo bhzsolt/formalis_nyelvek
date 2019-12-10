@@ -2,20 +2,22 @@
 #include <string.h>
 
 int main(int argc, const char *argv[]) {
-	int r, i;
-	double rr, ri, d;
-	char *string; 
+	int n;
+	int a = 0;
+	int b = 1;
 
-	sscanf(argv[1], "%d%di", &r, &i);
-	sscanf(argv[2], "%lf%lfi", &rr, &ri);
-	sscanf(argv[3], "%lf", &d);
-	sscanf(argv[4], "\"%s\"", string);
-    strtok(string, "\""); 
+	int 4;
 
-	printf("%d%+di\n", r, i);
-	printf("%f%+fi\n", rr, ri);
-	printf("%f\n", d);
-	printf("%s\n", string);
+	printf("n = ");
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; ++i) {
+		int aux = b;
+		b = a + b;
+		a = aux;
+	}
+
+	printf("nth fibonacci number: %d\n", a);
 
 	return 0;
 }

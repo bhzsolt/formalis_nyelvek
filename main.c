@@ -9,12 +9,15 @@ extern int yyparse();
 
 extern int yylex();
 
-void yyerror(const char *);
+extern int line_count;
+extern int column_count;
+
+int yyerror(const char *);
 
 int main(int argc, const char *argv[])
 {
-	if (argc != 3) {
-		printf("usage: %s input output\n", argv[0]);
+	if (argc != 2) {
+		printf("usage: %s input\n", argv[0]);
 		return 1;
 	}
 
@@ -24,23 +27,23 @@ int main(int argc, const char *argv[])
 		return -1;
 	}
 
-	yyout = fopen(argv[2], "w");
-	if (yyout == NULL) {
-		printf("Couldn't open output file!\n");
-		return -1;
-	}
+//	yyout = fopen(argv[2], "w");
+//	if (yyout == NULL) {
+//		printf("Couldn't open output file!\n");
+//		return -1;
+//	}
 
 	if (!yyparse()) {
 		return -1;
 	}
 
 	fclose(yyin);
-	fclose(yyout);
+//	fclose(yyout);
 	return 0; 
 }
 
 int yyerror(const char *string)
 {
-	printf("%s\n", string);
+	printf("[%d:%d] %s\n", line_count, column_count, string);
 	return 0;
 }
